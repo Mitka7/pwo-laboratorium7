@@ -85,6 +85,23 @@
 #       - run: tar xf app.tar
 #       - run: ./app/app
 
+# name: First CI
+# on: [push]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         rid: ["win-x64", "linux-x64"]
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-dotnet@v4
+#         with:
+#           dotnet-version: '8.0.x'
+#       - run: dotnet restore
+#       - run: dotnet publish -o app -r ${{ matrix.rid }} --sc /p:PublishSingleFile=true
+
 name: First CI
 on: [push]
 
@@ -99,5 +116,9 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-      - run: dotnet restore
+      - run: dotnet restore      
       - run: dotnet publish -o app -r ${{ matrix.rid }} --sc /p:PublishSingleFile=true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ matrix.rid }}
+          path: app/
