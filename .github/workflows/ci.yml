@@ -1,3 +1,13 @@
+# name: First CI
+# on: [push]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Printing hello
+#         run: echo "Hello, 🌎"
+
 name: First CI
 on: [push]
 
@@ -5,5 +15,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Printing hello
-        run: echo "Hello, 🌎"
+      - uses: actions/checkout@v4
+      - name: build using gcc
+        run: gcc -Wall -Werror main.c
